@@ -7,7 +7,7 @@
 ###################################################
 function fm_uninstall {
     local git_root="$(git rev-parse --show-toplevel 2>/dev/null)"
-    local util_file_path="${git_root}/src/utils.sh"
+    local util_file_path="${git_root}/copy/scripts/utils.sh"
 
     if [[ ! -f "${util_file_path}" ]]; then
         printf "%s\n" "${util_file_path} do not exist."

@@ -12,7 +12,7 @@
 function fuzzy_mac_search {
     # source utils.sh
     local fm_root="${HOME}/.fuzzy_mac"
-    local util_file_path="${fm_root}/src/utils.sh"
+    local util_file_path="${fm_root}/scripts/utils.sh"
 
     if [[ ! -f "${util_file_path}" ]]; then
         printf "%s\n" "${util_file_path} do not exist. Install Fuzzy-Mac first."
@@ -98,8 +98,8 @@ function fuzzy_mac_jump {
 #       input: $2: search keyword 2
 #      return: 0: success | 1: fail
 ###################################################
-function fm_fuzzy_edit {
-    local target_file="$(fm_fuzzy_search $1 $2)"
+function fuzzy_mac_edit {
+    local target_file="$(fuzzy_mac_search $1 $2)"
     local father_dir=$(dirname "${target_file}")
 
     if [[ -z "${target_file}" ]]; then

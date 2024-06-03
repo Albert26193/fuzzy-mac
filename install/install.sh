@@ -7,7 +7,7 @@
 ###################################################
 function fm_install_files {
     local git_root="$(git rev-parse --show-toplevel 2>/dev/null)"
-    local util_file_path="${git_root}/src/utils.sh"
+    local util_file_path="${git_root}/src/scripts/utils.sh"
 
     if [[ ! -f "${util_file_path}" ]]; then
         printf "%s\n" "${util_file_path} do not exist."
@@ -39,11 +39,6 @@ function fm_install_files {
         return 1
     fi
 
-    if [[ ! -f "${git_root}/config.env" ]]; then
-        fm_print_error_line "${git_root}/config.env not existed, please check."
-        return 1
-    fi
-
     if [[ $(ls -A "${target_dir}") ]]; then
         fm_print_green_line "ls -al ${target_dir} as below:"
         ls -al "${target_dir}"
@@ -57,10 +52,9 @@ function fm_install_files {
         fm_print_green_line "${target_dir} is clear now."
     fi
 
-    bash -c "cp -r ${git_root}/src ${target_dir}"
-    bash -c "cp -r ${git_root}/config.env ${target_dir}"
+    bash -c "cp -r ${git_root}/src/* ${target_dir}"
 
-    if [[ -d "${target_dir}/src" ]] &&
+    if [[ -d "${target_dir}/scripts" ]] &&
         [[ -f "${target_dir}/config.env" ]]; then
         fm_print_white "copy successfully, ls -al"
         fm_print_info "${target_dir}"
@@ -74,28 +68,28 @@ function fm_install_files {
 
     # check if has installed
     if cat "${HOME}/.zshrc" | grep -q ".fuzzy_mac"; then
-        fm_print_white_line "already have lso script in ~/.zshrc"
+        fm_print_white_line "already have fuzzy-mac script in ~/.zshrc"
         return 0
     fi
 
     echo -e "---------------------------------------------\n"
     fm_print_info_line "TIP: "
     fm_print_white_line "have already added below to your ~/.zshrc:"
-    fm_print_green_line "   source ${HOME}/.fuzzy_mac/src/export.sh"
+    fm_print_green_line "   source ${HOME}/.fuzzy_mac/scripts/export.sh"
     fm_print_green_line "   source ${HOME}/.fuzzy_mac/config.env"
     fm_print_green_line "   alias "fs"="fuzzy_mac_search""
     fm_print_green_line "   alias "fj"="fuzzy_mac_jump""
     fm_print_green_line "   alias "fe"="fuzzy_mac_edit""
     fm_print_green_line "   alias "hh"="fuzzy_mac_history""
 
-    echo '#------------------- lso -------------------
-source "${HOME}/.fuzzy_mac/src/export.sh"
+    echo '#------------------- fuzzy-mac -------------------
+source "${HOME}/.fuzzy_mac/scripts/export.sh"
 source "${HOME}/.fuzzy_mac/config.env"
 alias "fs"="fuzzy_mac_search"
 alias "fj"="fuzzy_mac_jump"
 alias "fe"="fuzzy_mac_edit"
 alias "hh"="fuzzy_mac_history"
-#------------------- lso -------------------' >>"${HOME}/.zshrc"
+#------------------- fuzzy-mac -------------------' >>"${HOME}/.zshrc"
 
     fm_print_white_line "then, exec 'source ~/.zshrc'"
 
@@ -110,7 +104,7 @@ alias "hh"="fuzzy_mac_history"
 function fm_install_dependency() {
     # load config file
     local git_root="$(git rev-parse --show-toplevel 2>/dev/null)"
-    local util_file_path="${git_root}/src/utils.sh"
+    local util_file_path="${git_root}/src/scripts/utils.sh"
 
     if [[ ! -f "${util_file_path}" ]]; then
         printf "%s\n" "${util_file_path} do not exist."

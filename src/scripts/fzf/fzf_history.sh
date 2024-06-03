@@ -8,7 +8,7 @@
 function fuzzy_mac_history() {
     # source utils.sh
     local fm_root="${HOME}/.fuzzy_mac"
-    local util_file_path="${fm_root}/src/utils.sh"
+    local util_file_path="${fm_root}/scripts/utils.sh"
 
     if [[ ! -f "${util_file_path}" ]]; then
         printf "%s\n" "${util_file_path} do not exist. Install Fuzzy-Mac first."
