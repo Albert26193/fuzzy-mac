@@ -47,7 +47,7 @@ function fuzzy_mac_search {
 
     local preview_command=""
     if [[ "${fm_search_preview}" == "true" ]]; then
-        preview_command="printf 'Name: \033[1;32m %s \033[0m\n' {}; if [[ -d {} ]]; then printf 'Type: \033[1;32m %s \033[0m\n' 'Dir'; exa --tree --level 2 {}; else printf 'Type: \033[1;32m %s \033[0m\n' 'File'; head -n 50 {} | ${bat_command} --color=always --style=header,grid; fi"
+        preview_command="printf 'Name: \033[1;32m %s \033[0m\n' {}; if [[ -d {} ]]; then printf 'Type: \033[1;32m %s \033[0m\n' 'Dir'; eza --tree --level 2 {}; else printf 'Type: \033[1;32m %s \033[0m\n' 'File'; head -n 50 {} | ${bat_command} --color=always --style=header,grid; fi"
     else
         preview_command="echo {};if [[ -d {} ]]; then ls -al {}; else head -n 50 {}; fi"
 
